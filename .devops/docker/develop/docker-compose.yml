@@ -1,0 +1,44 @@
+# Ports se definen en override
+services:
+  fast-commerce:
+    container_name: fast-commerce
+    build:
+      context: ../../../
+      dockerfile: ./.devops/docker/develop/Dockerfile
+    volumes:
+      - ../../../:/var/www/app
+      - ~/storage_block/fast-commerce/volumen_files:/var/www/volumen_files
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    depends_on:
+      - db-postgres-fast-commerce
+
+# Nginx Service (Solo sirve archivos estáticos, por eso solo dejo que copie los archivos públicos)
+  fast-commerce-nginx:
+    image: nginx:alpine
+    container_name: fast-commerce-nginx
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - ../../../public:/var/www/app/public
+      - ./nginx/conf.d/:/etc/nginx/templates
+    environment:
+      NGINX_FASTCGI_PASS: "fast-commerce:9000"
+
+# Servicio de Base de Datos PostgreSQL
+  db-postgres-fast-commerce:
+    image: postgres:14
+    container_name: db-postgres-fast-commerce
+    environment:
+      POSTGRES_PASSWORD: "shtwkj211283sss"
+      POSTGRES_USER: "user_commerce"
+      POSTGRES_DB: "fast-commerce"
+    volumes:
+      - ~/storage_block/commerce/postgres/data:/var/lib/postgresql/data
+    ports:
+      - 5434:5432
+
+#docker network create fast-commerce-network
+networks:
+  default:
+    name: fast-commerce-network
+    external: true
