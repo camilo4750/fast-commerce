@@ -9,8 +9,6 @@ services:
       - ../../../:/var/www/app
       - ~/storage_block/fast-commerce/volumen_files:/var/www/volumen_files
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
-    depends_on:
-      - db-postgres-fast-commerce
 
 # Nginx Service (Solo sirve archivos estáticos, por eso solo dejo que copie los archivos públicos)
   fast-commerce-nginx:
@@ -19,7 +17,7 @@ services:
     restart: unless-stopped
     tty: true
     volumes:
-      - ../../../public:/var/www/app/public
+      - ../../../:/var/www/app
       - ./nginx/conf.d/:/etc/nginx/templates
     environment:
       NGINX_FASTCGI_PASS: "fast-commerce:9000"
