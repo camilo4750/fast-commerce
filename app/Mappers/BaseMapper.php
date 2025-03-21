@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mapper;
+namespace App\Mappers;
 
 use App\Dto\BaseDto;
 
