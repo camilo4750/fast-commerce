@@ -5,7 +5,7 @@ namespace App\Services\ClientProduct;
 use App\Exceptions\ClientProduct\ClientProductNotFoundException;
 use App\Interfaces\Repositories\ClientProduct\ClientProductRepositoryInterface;
 use App\Interfaces\Services\ClientProduct\ClientProductServiceInterface;
-use App\Mappers\Product\ProductViewDtoMapper;
+use App\Mappers\ClientProduct\ClientProductViewDtoMapper;
 
 class ClientProductService implements ClientProductServiceInterface
 {
@@ -24,6 +24,6 @@ class ClientProductService implements ClientProductServiceInterface
             new ClientProductNotFoundException()
         );
         
-        return (new ProductViewDtoMapper)->createCollectionFromDbRecords($products);
+        return (new ClientProductViewDtoMapper)->createCollectionFromDbRecords($products);
     }
 }
