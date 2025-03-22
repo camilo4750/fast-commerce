@@ -45,32 +45,11 @@
             mounted() {
                 this.clientId = Number(@json($clientId));       
                 this.getClientById();     
-                this.getProducts();     
-                this.product();           
+                this.getProducts();   
             },
             methods: {                
                 getClientById() {
                     let url = "{{ route('Client.GetById', ['clientId' => '?']) }}".replace('?', this.clientId);    
-                    fetch(url, {
-                        method: "GET",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                        },
-                    })
-                    .then((response) => response.json())
-                    .then((res) => {
-                        if(!res.success) {
-                            Utilities.toastr_('error', 'Error', res.message);
-                            return;
-                        }
-
-                        this.client = res.client;
-                    })
-                },
-
-                product() {
-                    let url = "{{ route('Product.GetById', ['productId' => '?']) }}".replace('?', 2);    
                     fetch(url, {
                         method: "GET",
                         headers: {
