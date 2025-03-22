@@ -43,7 +43,8 @@
             },
             mounted() {
                 this.clientId = Number(@json($clientId));       
-                this.getClientById();                     
+                this.getClientById();     
+                this.getProducts();                
             },
             methods: {                
                 getClientById() {
@@ -63,6 +64,26 @@
                         }
 
                         this.client = res.client;
+                    })
+                },
+
+                getProducts() {
+                    let url = "{{ route('ProductsByClient', ['clientId' => '?']) }}".replace('?', this.clientId);    
+                    fetch(url, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json",
+                        },
+                    })
+                    .then((response) => response.json())
+                    .then((res) => {
+                        if(!res.success) {
+                            Utilities.toastr_('error', 'Error', res.message);
+                            return;
+                        }
+
+                        this.products = res.products;
                     })
                 },
 
