@@ -12,7 +12,7 @@ class ClientViewDtoMapper extends BaseMapper
         return new ClientViewDto();
     }
 
-    public function createFromDbRecords($dbRecord): ClientViewDto
+    public function createFromDbRecords(object $dbRecord): ClientViewDto
     {
         $dto = $this->getNewDto();
         $dto->id = $dbRecord->id;
