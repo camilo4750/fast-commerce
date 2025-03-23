@@ -1,9 +1,10 @@
 const Utilities = {
-    toastr_(type, title, msg) {
+    toastr_(type, title, msg, customOptions = {}) {
         if (typeof toastr === "undefined") {
             throw new Error("toastr is not defined");
         }
-        toastr.options = {
+
+        const baseOptions = {
             closeButton: true,
             debug: false,
             newestOnTop: false,
@@ -20,6 +21,9 @@ const Utilities = {
             showMethod: "fadeIn",
             hideMethod: "fadeOut",
         };
+
+        toastr.options = Object.assign({}, baseOptions, customOptions);
+
         toastr[type](msg, title);
     },
-}
+};

@@ -11,16 +11,16 @@ use App\Mappers\Client\ClientViewDtoMapper;
 class ClientServices implements ClientServiceInterface
 {
     private array $errors = [];
-    protected ClientRepositoryInterface $employeeRepo;
+    protected ClientRepositoryInterface $clientRepo;
 
     public function __construct()
     {
-        $this->employeeRepo = app(ClientRepositoryInterface::class);
+        $this->clientRepo = app(ClientRepositoryInterface::class);
     }
 
     public function getById($id): ClientViewDto
     {
-        $client = $this->employeeRepo->getById($id);
+        $client = $this->clientRepo->getById($id);
 
         throw_if(
             !$client,
@@ -32,7 +32,7 @@ class ClientServices implements ClientServiceInterface
 
     public function getByEmail($email): ClientViewDto
     {
-        $client = $this->employeeRepo->getByEmail($email);
+        $client = $this->clientRepo->getByEmail($email);
 
         throw_if(
             !$client,
