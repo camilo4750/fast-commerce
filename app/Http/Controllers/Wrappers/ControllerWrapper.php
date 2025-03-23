@@ -50,43 +50,4 @@ class ControllerWrapper
         }
         return $response;
     }
-
-    public static function execWithHttpResponse($callback)
-    {
-        try {
-            DB::beginTransaction();
-            $response = $callback();
-            DB::commit();
-        } catch (ApplicationLogicException|BusinessLogicException $exception) { 
-            DB::rollBack();
-            report($exception);
-            return back()->withErrors($exception->getMessage());
-        }
-        return $response;
-    }
-
-    public static function execWithRawResponse($callback, $fallback)
-    {
-        try {
-            DB::beginTransaction();
-            $response = $callback();
-            DB::commit();
-        } catch (ValidationException $exception) {
-            DB::rollBack();
-            $response = $fallback($exception);
-        } catch (\Exception $exception) {
-            DB::rollBack();
-            report($exception);
-            $response = $fallback($exception);
-        } catch (\Throwable $exception) {
-            DB::rollBack();
-            report($exception);
-            $response = $fallback($exception);
-        } catch (\ErrorException $exception) {
-            DB::rollBack();
-            report($exception);
-            $response = $fallback($exception);
-        }
-        return $response;
-    }
 }
