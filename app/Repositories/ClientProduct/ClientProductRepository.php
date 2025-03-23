@@ -7,9 +7,9 @@ use App\Interfaces\Repositories\ClientProduct\ClientProductRepositoryInterface;
 
 class ClientProductRepository implements ClientProductRepositoryInterface
 {
-    public function getProductsByClient(int $clientId): object
+    public function getProductsByClient(int $clientId): object|null
     {
-        return ClientProductEntity::query()->select([
+        $products = ClientProductEntity::query()->select([
             "products.id",
             "products.name",
             "products.description",
@@ -21,5 +21,7 @@ class ClientProductRepository implements ClientProductRepositoryInterface
             ->Leftjoin('products', 'client_product.product_id', '=', 'products.id')
             ->where('client_product.client_id', $clientId)
             ->get();
+            
+        return (!$products->isEmpty()) ?  $products : null;
     }
 }
