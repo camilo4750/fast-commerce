@@ -50,12 +50,13 @@
                             <p class="card-text" style="height: 50px">@{{ product.description }}</p>
                             <div class="d-flex justify-content-between fw-semibold">
                                 <span class="">@{{ `$ ${ product.price } usd` }}</span>
-                                <span :class="product . stock > 0 ? 'text-success' : 'text-danger'">
+                                <span :class="product.stock > 0 ? 'text-success' : 'text-danger'">
                                     @{{ `cant: ${ product.stock }` }}
                                 </span>
                             </div>
                             <div class="d-flex align-items-end justify-content-end mt-auto">
-                                <button class="btn btn-sm btn-info" @click="addCard(product)">
+                                <button class="btn btn-sm btn-info" :disabled="product.stock <= 0"
+                                    @click="addCard(product)">
                                     <span class="me-2">Añadir al carrito</span>
                                     <i class="fa-solid fa-cart-shopping"></i>
                                 </button>
@@ -95,7 +96,6 @@
             mounted() {
                 this.clientId = Number(@json($clientId));
                 this.loadClientData();
-     
             },
             computed: {
                 cartTotal() {
@@ -115,6 +115,7 @@
                                 "Accept": "application/json",
                             },
                         });
+
                         const response = await res.json();
                         return response.client;
                     } catch (error) {
@@ -132,8 +133,8 @@
                                 "Accept": "application/json",
                             },
                         });
+
                         const response = await res.json();
-                        
                         return response.data;
                     } catch (error) {
                         console.error(error)
@@ -177,9 +178,41 @@
 
                 deleteAllProductsCard() {
                     this.cart = {};
-                }
-            },
+                },
 
+                async storeOrder() {
+                    try {
+                        const cart = Object.values(this.cart);
+
+                        const res = await fetch('{{ route('Order.Store') }}', {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                            },
+                            body: JSON.stringify({
+                                cart: cart,
+                                clientId: this.clientId
+                            })
+                        })
+
+                        const response = await res.json()
+
+                        if(!response.success) {
+                            Utilities.toastr_('error', 'Alerta', response.message)
+                            return;
+                        }
+
+                        await this.loadClientData()
+                        $('#cartModal').modal('hide');
+                        this.cart = {},
+                        Utilities.toastr_('success', 'Exito', response.message)
+                    } catch (error) {
+                        console.error(error)
+                    }
+                },
+            },
         })
         const vm = app.mount('#app');
 </script>
