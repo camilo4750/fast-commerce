@@ -6,7 +6,7 @@ use App\Exceptions\BusinessLogicException;
 
 class ClientNotFoundException extends BusinessLogicException
 {
-    protected $message = 'Client not found';
+    protected $message = 'Cliente no encontrado';
     protected $code = 404;
 
     protected array $errors = [];
