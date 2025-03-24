@@ -1,4 +1,4 @@
-@extends('master') {{-- Extiende la plantilla master.blade.php --}}
+@extends('master')
 
 @section(section: 'css')
 <style>
@@ -169,6 +169,7 @@
                     }
                     Utilities.toastr_('success', 'Exito', 'Tu producto se agrego al carrito', {
                         positionClass: "toast-bottom-right",
+                        timeOut: "1000",
                     });
                 },
 
@@ -207,7 +208,7 @@
                         await this.loadClientData()
                         $('#cartModal').modal('hide');
                         this.cart = {},
-                        Utilities.toastr_('success', 'Exito', response.message)
+                        Utilities.toastr_('success', 'Compra Exitosa', response.message)
                     } catch (error) {
                         console.error(error)
                     }
