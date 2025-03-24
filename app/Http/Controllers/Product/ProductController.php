@@ -21,7 +21,7 @@ class ProductController extends Controller
         return ControllerWrapper::execWithJsonSuccessResponse(function () use ($productId) {
             $product = $this->productService->getById($productId);
             return [
-                "Informacion del producto",
+                "message" => "Informacion del producto",
                 "data" => $product,
             ];
         });
