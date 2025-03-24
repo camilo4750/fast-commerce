@@ -37,7 +37,7 @@
                         </tbody>
                     </table>
                 </div>
-              
+
                 <div class="d-flex justify-content-end">
                     <strong>@{{ `total: $${cartTotal}` }}</strong>
                 </div>
@@ -46,7 +46,8 @@
                         :disabled="Object.keys(cart).length === 0">
                         Eliminar pedido
                     </button>
-                    <button class="btn btn-sm btn-success" :disabled="Object.keys(cart).length === 0">
+                    <button class="btn btn-sm btn-success" @click="storeOrder()"
+                        :disabled="Object.keys(cart).length === 0">
                         Realizar pedido
                     </button>
                 </div>

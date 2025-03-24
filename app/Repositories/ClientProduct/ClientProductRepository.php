@@ -20,6 +20,7 @@ class ClientProductRepository implements ClientProductRepositoryInterface
         ])
             ->Leftjoin('products', 'client_product.product_id', '=', 'products.id')
             ->where('client_product.client_id', $clientId)
+            ->orderBy('products.name')
             ->get();
             
         return (!$products->isEmpty()) ?  $products : null;
