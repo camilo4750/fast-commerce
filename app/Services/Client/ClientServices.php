@@ -24,7 +24,7 @@ class ClientServices implements ClientServiceInterface
 
         throw_if(
             !$client,
-            new ClientNotFoundException(message: "Cliente no encontrado en el sistema")
+            new ClientNotFoundException()
         );
 
         return (new ClientViewDtoMapper)->createFromDbRecords($client);
@@ -36,7 +36,7 @@ class ClientServices implements ClientServiceInterface
 
         throw_if(
             !$client,
-            new ClientNotFoundException(message: "Cliente no encontrado en el sistema")
+            new ClientNotFoundException()
         );
 
         return (new ClientViewDtoMapper)->createFromDbRecords($client);
