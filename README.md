@@ -7,59 +7,69 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## Fast Commerce
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Aplicacion que contiene el backEnd y frontEnd de Fast commerce
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Arquitectura
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Se implementan metodologías utilizando los patrones Service y Repository, desacoplando la lógica de negocio y el acceso a datos mediante el uso de interfaces,
+  facilitando así la mantenibilidad, escalabilidad y pruebas del sistema.
+- Para el desarrollo se aplica una arquitectura en capas
+- Para facilitar la configuración del entorno, asegurar la portabilidad, se utilizó Docker como herramienta de virtualización ligera.
+- Fast-commerce/
+│
+├── app/
+│   ├── Dto/                     # Objetos de transferencia de datos (Data Transfer Objects)
+│   ├── Entities/                # Entidades del dominio
+│   ├── Exceptions/              # Excepciones personalizadas
+│   ├── Http/
+│   │   └── Controllers/         # Controladores HTTP
+│   ├── Interfaces/
+│   │   ├── Repositories/        # Interfaces para los Repositorios
+│   │   └── Services/            # Interfaces para los Servicios
+│   ├── Mappers/                 # Mapeadores de datos (DTO)
+│   ├── Repository/              # Implementaciones de Repositorios
+│   └── Services/                # Implementaciones de Servicios
+│
+└── tests/
+    ├── Feature/                 # Pruebas funcionales de alto nivel
+    ├── Integration/             # Pruebas de integración
+    │   ├── Repositories/        # Pruebas específicas de Repositorios
+    │   └── Services/            # Pruebas específicas de Servicios
 
-## Learning Laravel
+  
+- Se definieron contenedores separados para los servicios clave: PHP (Laravel), PostgreSQL (Base de datos), Nginx o Apache (Servidor web)
+- Toda la configuración se maneja a través de archivos Dockerfile y docker-compose.yml
+- .devops/
+  └── docker/
+      └── develop/
+          ├── Dockerfile
+          └── docker-compose.yml
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Technologias
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Larave/php
+- Vue3.js
+- Toast.js
+- Bootstrap 5
 
-## Laravel Sponsors
+## BD
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Se usa una Base de Datos Postgres con la cual se realiza la consulta y persistencia de datos.
 
-### Premium Partners
+## ESpecificacion entorno
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+# Desarrollo
+Para inicializar composer
+- docker exec -it fast-commerce composer install
 
-## Contributing
+Para desplegar el entorno ejecutar el comando
+- docker compose -f .devops/docker/develop/docker-compose.yml -f .devops/docker/develop/docker-compose.override.yml up
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Para bajar contenedor Docker
+- sudo docker compose -f .devops/docker/develop/docker-compose.yml -f .devops/docker/develop/docker-compose.override.yml down
 
 ## License
 
