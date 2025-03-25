@@ -21,6 +21,7 @@ class ClientProductRepositoryTest extends BaseTest
         $this->assertNotEmpty($products);
 
         $this->assertNull(session('errors'));
-        $this->assertObjectHasProperty('id', $products[0]);
+        $this->assertNotNull($products);
+        $this->assertObjectHasProperty('id', $products[0]->id);
     }
 }

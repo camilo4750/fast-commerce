@@ -13,11 +13,12 @@ class ClientRepositoryTest extends BaseTest
      */
     public function is_get_by_id_repo()
     {
-        $employee = (App::make(ClientRepositoryInterface::class))->getById(1);
+        $client = (App::make(ClientRepositoryInterface::class))->getById(1);
 
         $this->assertNull(session('errors'));
-        $this->assertEquals(1, $employee->id);
-        $this->assertEquals('john@gmail.com', $employee->email);
+        $this->assertNotNull($client);
+        $this->assertEquals(1, $client->id);
+        $this->assertEquals('john@gmail.com', $client->email);
     }
 
      /**
@@ -25,9 +26,12 @@ class ClientRepositoryTest extends BaseTest
      */
     public function is_get_by_email_repo()
     {
-        $employee = (App::make(ClientRepositoryInterface::class))->getByEmail('john@gmail.com');
+        $client = (App::make(ClientRepositoryInterface::class))
+            ->getByEmail('john@gmail.com');
+
 
         $this->assertNull(session('errors'));
-        $this->assertEquals('john@gmail.com', $employee->email);
+        $this->assertNotNull($client);
+        $this->assertEquals('john@gmail.com', $client->email);
     }
 }

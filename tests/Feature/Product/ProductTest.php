@@ -14,6 +14,13 @@ class ProductTest extends BaseTest
         $response = $this->getJson(route('Product.GetById', ['ProductId' => 1]));
 
         $response->assertStatus(200);
-        $response->assertJsonStructure(['message', 'data']);
+        $response->assertJsonStructure([
+            'message',
+            'data',
+        ]);
+
+        $response->assertJson([
+            'message' => 'Informacion del producto',
+        ]);
     }
 }
