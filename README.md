@@ -66,14 +66,19 @@ Se usa una Base de Datos Postgres con la cual se realiza la consulta y persisten
 
 # Desarrollo
 Para inicializar composer
-- docker exec -it fast-commerce composer install
+```plaintext
+docker exec -it fast-commerce composer install
+ ```
 
 Para desplegar el entorno ejecutar el comando
-- docker compose -f .devops/docker/develop/docker-compose.yml -f .devops/docker/develop/docker-compose.override.yml up
+```plaintext
+docker compose -f .devops/docker/develop/docker-compose.yml -f .devops/docker/develop/docker-compose.override.yml up
+```
 
 Para bajar contenedor Docker
-- sudo docker compose -f .devops/docker/develop/docker-compose.yml -f .devops/docker/develop/docker-compose.override.yml down
-
+```plaintext
+sudo docker compose -f .devops/docker/develop/docker-compose.yml -f .devops/docker/develop/docker-compose.override.yml down
+```
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
