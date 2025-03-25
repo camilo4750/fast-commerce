@@ -85,14 +85,19 @@ Crear la red
 docker network create fast-commerce-network
  ```
 
+Para desplegar el entorno ejecutar el comando
+```plaintext
+docker compose -f .devops/docker/develop/docker-compose.yml -f .devops/docker/develop/docker-compose.override.yml up
+```
+
 Para inicializar composer
 ```plaintext
 docker exec -it fast-commerce composer install
  ```
 
-Para desplegar el entorno ejecutar el comando
+Para correr las migraciones
 ```plaintext
-docker compose -f .devops/docker/develop/docker-compose.yml -f .devops/docker/develop/docker-compose.override.yml up
+sudo docker exec -it fast-commerce php artisan migrate
 ```
 
 Para bajar contenedor Docker
