@@ -7,11 +7,11 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## Fast Commerce
+# Fast Commerce
 
 Aplicacion que contiene el backEnd y frontEnd de Fast commerce
 
-## Arquitectura
+# Arquitectura
 
 - Se implementan metodologías utilizando los patrones Service y Repository, desacoplando la lógica de negocio y el acceso a datos mediante el uso de interfaces,
   facilitando así la mantenibilidad, escalabilidad y pruebas del sistema.
@@ -51,14 +51,14 @@ Fast-commerce/
 ```
 
 
-## Technologias
+# Technologias
 
 - Larave/php
 - Vue3.js
 - Toast.js
 - Bootstrap 5
 
-## BD
+# BD
 
 Se usa una Base de Datos Postgres con la cual se realiza la consulta y persistencia de datos.
 
