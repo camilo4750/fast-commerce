@@ -33,11 +33,14 @@ Fast-commerce/
 │   ├── Repository/              # Implementaciones de Repositorios
 │   └── Services/                # Implementaciones de Servicios
 │
-└── tests/
-    ├── Feature/                 # Pruebas funcionales de alto nivel
-    ├── Integration/             # Pruebas de integración
-    │   ├── Repositories/        # Pruebas específicas de Repositorios
-    │   └── Services/            # Pruebas específicas de Servicios
+├── routes/
+│    ├── App/                    # Rutas de la aplicacion
+│
+├── tests/
+│    ├── Feature/                 # Pruebas funcionales
+│    ├── Integration/             # Pruebas de integración
+│    │   ├── Repositories/        # Pruebas específicas de Repositorios
+│    │   └── Services/            # Pruebas específicas de Servicios
 ```
   
 - Se definieron contenedores separados para los servicios clave: PHP (Laravel), PostgreSQL (Base de datos), Nginx o Apache (Servidor web)
@@ -46,6 +49,11 @@ Fast-commerce/
 .devops/
   └── docker/
       └── develop/
+          ├── nginx
+          ├── php
+          ├── docker-compose.override.example.yml
+          ├── docker-compose.override.yml
+          ├── docker-compose.yml
           ├── Dockerfile
           └── docker-compose.yml
 ```
