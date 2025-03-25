@@ -17,7 +17,7 @@ Aplicacion que contiene el backEnd y frontEnd de Fast commerce
   facilitando así la mantenibilidad, escalabilidad y pruebas del sistema.
 - Para el desarrollo se aplica una arquitectura en capas
 - Para facilitar la configuración del entorno, asegurar la portabilidad, se utilizó Docker como herramienta de virtualización ligera.
-- Fast-commerce/
+Fast-commerce/
 │
 ├── app/
 │   ├── Dto/                     # Objetos de transferencia de datos (Data Transfer Objects)
@@ -41,7 +41,7 @@ Aplicacion que contiene el backEnd y frontEnd de Fast commerce
   
 - Se definieron contenedores separados para los servicios clave: PHP (Laravel), PostgreSQL (Base de datos), Nginx o Apache (Servidor web)
 - Toda la configuración se maneja a través de archivos Dockerfile y docker-compose.yml
-- .devops/
+.devops/
   └── docker/
       └── develop/
           ├── Dockerfile
