@@ -10,7 +10,7 @@ services:
       - ~/storage_block/fast-commerce/volumen_files:/var/www/volumen_files
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
 
-# Nginx Service (Solo sirve archivos estáticos, por eso solo dejo que copie los archivos públicos)
+# Nginx Service 
   fast-commerce-nginx:
     image: nginx:alpine
     container_name: fast-commerce-nginx
