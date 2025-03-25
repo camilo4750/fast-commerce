@@ -33,7 +33,7 @@
                     <ul class="dropdown-menu">
                         <template v-if="orders.length > 0">
                             <li v-for="(order, index) in orders" :key="order.id">
-                                <button type="button" class="dropdown-item">
+                                <button type="button" class="dropdown-item" @click="getProductsByOrder(order.id)">
                                     <span class="fw-bold">@{{ index + 1 }}</span>@{{` - ${order.createdAt}`}}
                                 </button>
                             </li>
@@ -86,7 +86,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -100,6 +99,7 @@
         </div>
     </div>
     @include('Modals.showCart')
+    @include('Modals.showDetailsOrder')
 </div>
 
 @endsection
@@ -115,6 +115,7 @@
                     products: [],
                     cart: {},
                     orders: [],
+                    orderDetails: [],
                 }
             },
             mounted() {
@@ -125,6 +126,11 @@
                 cartTotal() {
                     return Object.values(this.cart).reduce((total, product) => {
                         return total + product.price;
+                    }, 0);
+                },
+                OrderTotal() {
+                    return this.orderDetails.reduce((total, order) => {
+                        return total + order.priceTotal;
                     }, 0);
                 }
             },
@@ -254,6 +260,32 @@
                         console.log(response);
                         
                         return response.data;
+                    } catch (error) {
+                        console.error(error)
+                    }
+                },
+
+                async getProductsByOrder(orderId) {
+                    this.orderDetails = [];
+                    let url = "{{ route('OrderDetails.GetProductsByOrder', ['orderId' => '?']) }}".replace('?', orderId);
+                    try {
+                        const res = await fetch(url, {
+                            method: "GET",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                            },
+                        });
+
+                        const response = await res.json();
+
+                        if(!response.success) {
+                            Utilities.toastr_('error', 'Alerta', 'Fallo en la peticion')
+                            return
+                        }
+
+                        this.orderDetails = response.data;
+                        $('#OrderDetailsModal').modal('show');
                     } catch (error) {
                         console.error(error)
                     }
