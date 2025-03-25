@@ -8,4 +8,6 @@ use Illuminate\Http\Request;
 interface OrderServiceInterface 
 {
     public function storeOrder(Request $request): int;
+
+    public function getOrdersByClient(int $client_id);
 }

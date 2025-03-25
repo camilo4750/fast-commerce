@@ -5,6 +5,7 @@ namespace App\Repositories\Order;
 use App\Dto\Order\OrderDto;
 use App\Entities\Order\OrderEntity;
 use App\Interfaces\Repositories\Order\OrderRepositoryInterface;
+use Illuminate\Support\Collection;
 
 class OrderRepository implements OrderRepositoryInterface
 {
@@ -18,5 +19,14 @@ class OrderRepository implements OrderRepositoryInterface
         return $order_id;
     }
 
-    public function getId() {}
+    public function getOrdersByClient(int $client_id): Object
+    {
+        return OrderEntity::query()->select([
+            "orders.id",
+            "orders.created_at"
+        ])
+            ->where('client_id', '=', $client_id)
+            ->orderBy('id')
+            ->get();
+    }
 }
