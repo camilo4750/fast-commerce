@@ -70,6 +70,13 @@ Fast-commerce/
 
 Se usa una Base de Datos Postgres con la cual se realiza la consulta y persistencia de datos.
 
+## Migraciones por defect
+- Se creron migraciones para insertar clientes por defecto y a cada cliente se les asociaron los productos. Facilitando las pruebas adjunto correos:
+ - john@gmail.com
+ - jane@gmail.com
+ - carlos@gmail.com
+ - federico@gmail.com
+
 # ESpecificacion entorno
 
 ## Desarrollo
