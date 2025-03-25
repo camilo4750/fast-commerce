@@ -33,4 +33,15 @@ class OrderController extends Controller
             ];
         });
     }
+
+    public function getOrdersByClient(int $client_id): array|JsonResponse
+    {
+        return ControllerWrapper::execWithJsonSuccessResponse(function () use ($client_id) {
+            $orders = $this->orderService->getOrdersByClient($client_id);
+            return [
+                "message" => "Listado de ordenes",
+                "data" => $orders,
+            ];
+        });
+    }
 }

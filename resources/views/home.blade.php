@@ -11,6 +11,11 @@
             max-width: 100% !important;
         }
     }
+
+    .dropdown-menu {
+        max-height: 400px !important;
+        overflow-x: auto !important;
+    }
 </style>
 
 @section('body')
@@ -18,7 +23,26 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container">
             <a class="navbar-brand fw-bold" href="#">Fast Commerce</a>
-            <div class="d-flex gap-2 align-items-center ms-auto">
+            <div class="d-flex gap-2 align-items-center ms-md-auto">
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Mis pedidos
+                        <span class="mx-2 badge text-bg-light">@{{ orders.length }}</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <template v-if="orders.length > 0">
+                            <li v-for="(order, index) in orders" :key="order.id">
+                                <button type="button" class="dropdown-item">
+                                    <span class="fw-bold">@{{ index + 1 }}</span>@{{` - ${order.createdAt}`}}
+                                </button>
+                            </li>
+                        </template>
+                        <li v-else class="text-center fw-bold">
+                            Aun no tienes pedidos
+                        </li>
+                    </ul>
+                </div>
                 <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal"
                     data-bs-target="#cartModal">
                     <i class="fa-solid fa-cart-shopping"></i>
@@ -32,7 +56,6 @@
                         <div class="px-3 pb-2 border-bottom">
                             <p class="m-0"><b>Bienvenido:</b> <br /> @{{this.client.name}}</p>
                         </div>
-                        <li><a class="dropdown-item" href="#">Mis Pedidos</a></li>
                         <li><button class="dropdown-item" @click="logout()">Cerrar session</button></li>
                     </ul>
                 </div>
@@ -91,6 +114,7 @@
                     client: {},
                     products: [],
                     cart: {},
+                    orders: [],
                 }
             },
             mounted() {
@@ -145,6 +169,7 @@
                     try {
                         this.client = await this.getClientById()
                         this.products = await this.getProductsByClient()
+                        this.orders = await this.getOrdersByClient()
                     } catch (error) {
                         console.error(error)
                     }
@@ -209,6 +234,26 @@
                         $('#cartModal').modal('hide');
                         this.cart = {},
                         Utilities.toastr_('success', 'Compra Exitosa', response.message)
+                    } catch (error) {
+                        console.error(error)
+                    }
+                },
+
+                async getOrdersByClient() {
+                    let url = "{{ route('OrdersByClient', ['clientId' => '?']) }}".replace('?', this.clientId);
+                    try {
+                        const res = await fetch(url, {
+                            method: "GET",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                            },
+                        });
+
+                        const response = await res.json();
+                        console.log(response);
+                        
+                        return response.data;
                     } catch (error) {
                         console.error(error)
                     }

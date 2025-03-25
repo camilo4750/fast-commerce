@@ -11,6 +11,7 @@ use App\Interfaces\Repositories\OrderDetails\OrderDetailsRepositoryInterface;
 use App\Interfaces\Repositories\Product\ProductRepositoryInterface;
 use App\Interfaces\Services\Order\OrderServiceInterface;
 use App\Mappers\Order\OrderDtoMapper;
+use App\Mappers\Order\OrderViewDtoMapper;
 use App\Mappers\OrderDetails\OrderDetailsDtoMapper;
 use App\Mappers\Product\ProductUpdateStockDtoMapper;
 use Illuminate\Http\Request;
@@ -112,5 +113,12 @@ class OrderService implements OrderServiceInterface
 
             $this->orderDetailsRepository->store($dtoOrderDetails);
         }
+    }
+
+    public function getOrdersByClient(int $client_id)
+    {
+        $orders = $this->orderRepository->getOrdersByClient($client_id);
+
+        return (new OrderViewDtoMapper)->createCollectionFromDbRecords($orders);
     }
 }
