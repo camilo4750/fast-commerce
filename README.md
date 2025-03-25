@@ -62,9 +62,9 @@ Fast-commerce/
 
 Se usa una Base de Datos Postgres con la cual se realiza la consulta y persistencia de datos.
 
-## ESpecificacion entorno
+# ESpecificacion entorno
 
-# Desarrollo
+## Desarrollo
 Para inicializar composer
 ```plaintext
 docker exec -it fast-commerce composer install
