@@ -65,6 +65,11 @@ Se usa una Base de Datos Postgres con la cual se realiza la consulta y persisten
 # ESpecificacion entorno
 
 ## Desarrollo
+Crear la red
+```plaintext
+docker network create fast-commerce-network
+ ```
+
 Para inicializar composer
 ```plaintext
 docker exec -it fast-commerce composer install
