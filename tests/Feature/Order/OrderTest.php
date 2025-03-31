@@ -2,10 +2,13 @@
 
 namespace Tests\Feature\Order;
 
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\BaseTest;
 
 class OrderTest extends BaseTest
 {
+    use DatabaseTransactions;
+
     /**
      *  @test 
      */
@@ -22,7 +25,7 @@ class OrderTest extends BaseTest
                     'quantity' => 2,
                 ],
                 [
-                    'id' => 1,
+                    'id' => 2,
                     'name' => 'Laptop Dell',
                     'price' => 1700,
                     'quantity' => 1,
@@ -30,7 +33,7 @@ class OrderTest extends BaseTest
             ],
         ];
 
-        $response = $this->postJson(route('orders.store'), $request);
+        $response = $this->postJson(route('Order.Store'), $request);
 
         $response->assertStatus(200);
         $response->assertJsonStructure([
@@ -49,9 +52,9 @@ class OrderTest extends BaseTest
     public function is_get_orders_by_client_working(): void
     {
         $clientId = 1;
-
-        $response = $this->getJson(route('OrdersByClient', ['client_id' => $clientId]));
-
+      
+        $response = $this->getJson(route('OrdersByClient', ['clientId' => $clientId]));
+        
         $response->assertStatus(200);
         $response->assertJsonStructure([
             'message',

@@ -17,5 +17,7 @@ class HomeTest extends BaseTest
         $response->assertStatus(200);
         $response->assertViewIs('home');
         $response->assertViewHas('clientId', 1);
+
+        ob_end_clean();
     }
 }
