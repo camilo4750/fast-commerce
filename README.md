@@ -104,6 +104,9 @@ Para bajar contenedor Docker
 ```plaintext
 sudo docker compose -f .devops/docker/develop/docker-compose.yml -f .devops/docker/develop/docker-compose.override.yml down
 ```
+El puerto para acceder al frontEnd:
+http://localhost:8081/
+
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
